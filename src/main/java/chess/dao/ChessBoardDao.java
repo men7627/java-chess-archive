@@ -6,8 +6,6 @@ import chess.domain.piece.PieceColor;
 import chess.domain.piece.PieceType;
 import chess.dto.ChessBoardDto;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,14 +45,11 @@ public class ChessBoardDao {
         public void insertChessBoard(int id, ChessBoardDto chessBoardDTO) {
             Map<Tile, Piece> board = chessBoardDTO.getBoard();
                 for (Tile tile : board.keySet()) {
-                        PreparedStatementSetter pss = new PreparedStatementSetter() {
-                                @Override
-                                public void setParameters(PreparedStatement pstmt) throws SQLException {
-                                        pstmt.setInt(1, id);
-                                        pstmt.setString(2, tile.toString());
-                                        pstmt.setString(3, String.valueOf(board.get(tile).getType()));
-                                        pstmt.setString(4, String.valueOf(board.get(tile).getColor()));
-                                }
+                        PreparedStatementSetter pss = pstmt -> {
+                                pstmt.setInt(1, id);
+                                pstmt.setString(2, tile.toString());
+                                pstmt.setString(3, String.valueOf(board.get(tile).getType()));
+                                pstmt.setString(4, String.valueOf(board.get(tile).getColor()));
                         };
                         JdbcTemplate template = new JdbcTemplate();
                         template.executeUpdate(insertQuery, pss);
