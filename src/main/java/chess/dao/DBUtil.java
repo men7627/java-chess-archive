@@ -9,8 +9,8 @@ public class DBUtil {
         Connection con = null;
         String server = "127.0.0.1"; // MySQL 서버 주소
         String database = "chess"; // MySQL DATABASE 이름
-        String userName = "chess_olaf"; //  MySQL 서버 아이디
-        String password = "chess_olaf"; // MySQL 서버 비밀번호
+        String userName = "root"; //  MySQL 서버 아이디
+        String password = "root"; // MySQL 서버 비밀번호
 
         // 드라이버 로딩
         try {
